@@ -13,7 +13,7 @@ class AssignmentRepository
 
     public function findById($id)
     {
-        return Assignment::findOrFail($id);
+        return Assignment::where('id', $id)->with('test', 'task')->first();
     }
 
     public function create(array $data)
