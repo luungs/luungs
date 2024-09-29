@@ -20,7 +20,10 @@ export default function Welcome({ auth, users }) {
                         ))}
                     </div>
                     <div className='col-span-3'>
-                        <div className='py-20 w-full rounded-lg bg-white'></div>
+                        <div className='py-3 px-5 rounded-lg bg-white border border-gray-200'>
+                            <div className='text-lg font-semibold'>Здесь нужно поставить новость</div>
+                            <div className='text-blue-500 font-semibold text-xl'>luungs - bızden bızge</div>
+                        </div>
                     </div>
                 </div>
             </Layout>
