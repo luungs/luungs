@@ -1,5 +1,6 @@
 <?php
 
+use App\Api\Controllers\AssignmentController;
 use App\Api\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+Route::get('/asignments', [AssignmentController::class, 'index']);
+Route::get('/asignments/{id}', [AssignmentController::class, 'show']);
