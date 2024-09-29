@@ -42,6 +42,10 @@ class UserController extends Controller
             'name' => 'string',
             'email' => 'email|unique:users,email,'.$id,
             'password' => 'string|min:6',
+            'music_taste' => 'string|nullable',
+            'movie_taste' => 'string|nullable',
+            'unversity' => 'string|nullable',
+            'grade' => 'string|nullable',
         ]);
 
         return response()->json($this->userService->updateUser($id, $data));

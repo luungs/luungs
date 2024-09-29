@@ -13,7 +13,26 @@ class AssignmentRepository
 
     public function findById($id)
     {
-        return Assignment::where('id', $id)->with('test', 'task')->first();
+        if(auth()->id()){
+        return Assignment::where('id', $id)
+            ->with([
+                'test' => function($query) {
+                    $query->with(['userAnswers' => function ($subQuery) {
+                        $subQuery->select('id as user_answer_id', 'test_id', 'is_correct', 'user_id')
+                            ->where('user_id', auth()->id());
+                    }]);
+                },
+                'task' => function($query) {
+                    $query->with(['userAnswers' => function ($subQuery) {
+                        $subQuery->select('id as user_answer_id', 'task_id', 'is_correct', 'user_id')
+                            ->where('user_id', auth()->id());
+                    }]);
+                }
+            ])
+            ->first();
+        } else {
+            return Assignment::where('id', $id)->with('test', 'task')->first();
+        }
     }
 
     public function create(array $data)

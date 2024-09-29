@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Make the specified fields nullable
             $table->string('music_taste')->nullable()->change();
             $table->string('movie_taste')->nullable()->change();
             $table->string('grade')->nullable()->change();
