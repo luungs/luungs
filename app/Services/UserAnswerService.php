@@ -57,7 +57,7 @@ class UserAnswerService
             $userAnswer = UserAnswers::create($data); // Create new answer
         }
 
-        $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['task_id'], $data['test_id']);
+        $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['task_id'] ?? null, $data['test_id'] ?? null);
 
         return $userAnswer;
     }
