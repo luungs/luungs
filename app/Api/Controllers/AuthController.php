@@ -46,9 +46,10 @@ class AuthController extends Controller
         return response()->json(['user' => $user, 'token' => $token]);
     }
 
-    public function user(Request $request)
+    public function user($id)
     {
-        return response()->json($request->user());
+        $user = User::find($id);
+        return response()->json(['user' => $user]);
     }
 
     public function logout(Request $request)

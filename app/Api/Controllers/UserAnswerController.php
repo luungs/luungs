@@ -18,12 +18,9 @@ class UserAnswerController extends Controller
 
     public function store(UserAnswerRequest $request): JsonResponse
     {
-        $userId = auth()->id();  // Get the logged-in user's ID
 
         $data = $request->validated();
-        $data['user_id'] = $userId;  // Assign the current user's ID to the answer
 
-        // Handle creation or updating if the answer already exists for the user and task_id/test_id
         $userAnswer = $this->userAnswerService->createOrUpdateUserAnswer($data);
 
         return response()->json($userAnswer, 201);
