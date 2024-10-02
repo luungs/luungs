@@ -58,13 +58,29 @@ class UserAnswerService
 
     private function updateUserRatingIfAllCorrect($userId, $taskId = null, $testId = null)
     {
-        // Fetch all user answers for the specific task or test
+        // Determine the assignment ID based on the provided taskId or testId
+        $assignmentId = null;
+
+        if ($taskId) {
+            $assignmentId = Task::where('id', $taskId)->value('assignment_id');
+        } elseif ($testId) {
+            $assignmentId = Test::where('id', $testId)->value('assignment_id');
+        }
+
+        if (!$assignmentId) {
+            Log::warning("No assignment_id found for User $userId, Task ID: $taskId, Test ID: $testId.");
+            return; // Exit if no assignment ID is found
+        }
+
+        // Fetch all user answers for the specific assignment
         $userAnswers = UserAnswers::where('user_id', $userId)
-            ->when($taskId, function ($query) use ($taskId) {
-                return $query->where('task_id', $taskId);
-            })
-            ->when($testId, function ($query) use ($testId) {
-                return $query->where('test_id', $testId);
+            ->where(function ($query) use ($assignmentId) {
+                // Get all tasks and tests related to the assignment
+                $taskIds = Task::where('assignment_id', $assignmentId)->pluck('id');
+                $testIds = Test::where('assignment_id', $assignmentId)->pluck('id');
+
+                return $query->whereIn('task_id', $taskIds)
+                             ->orWhereIn('test_id', $testIds);
             })
             ->get();
 
@@ -73,35 +89,20 @@ class UserAnswerService
             return $answer->is_correct; // Check is_correct flag
         });
 
-        Log::info("User $userId answers checked. All correct: " . ($allCorrect ? 'Yes' : 'No'));
+        Log::info("User $userId answers for Assignment $assignmentId checked. All correct: " . ($allCorrect ? 'Yes' : 'No'));
 
         if ($allCorrect) {
-            // Get the assignment_id from the task or test
-            $assignmentId = null;
+            // Fetch the assignment rating
+            $assignmentRating = Assignment::find($assignmentId)->rating;
 
-            if ($taskId) {
-                $assignmentId = Task::where('id', $taskId)->value('assignment_id');
-            } elseif ($testId) {
-                $assignmentId = Test::where('id', $testId)->value('assignment_id');
-            }
+            // Update user's rating
+            $user = User::find($userId);
+            $user->rating += $assignmentRating;
+            $user->save();
 
-            if ($assignmentId) {
-                // Fetch the assignment rating
-                $assignmentRating = Assignment::find($assignmentId)->rating;
-
-                // Update user's rating
-                $user = User::find($userId);
-                $user->rating += $assignmentRating;
-                $user->save();
-
-                Log::info("User $userId rating updated by $assignmentRating.");
-            } else {
-                Log::warning("No assignment_id found for User $userId, Task ID: $taskId, Test ID: $testId.");
-            }
+            Log::info("User $userId rating updated by $assignmentRating for Assignment $assignmentId.");
         }
     }
-
-
 
     public function updateUserAnswer($id, array $data)
     {
