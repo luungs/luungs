@@ -55,7 +55,7 @@ class UserAnswerService
         return $userAnswer;
     }
 
-   private function updateUserRatingIfAllCorrect($userId, $taskId = null, $testId = null)
+    private function updateUserRatingIfAllCorrect($userId, $taskId = null, $testId = null)
     {
         // Fetch all user answers for the specific task or test
         $userAnswers = UserAnswers::where('user_id', $userId)
@@ -71,6 +71,8 @@ class UserAnswerService
         $allCorrect = $userAnswers->every(function ($answer) {
             return $answer->is_correct; // Check is_correct flag
         });
+
+        Log::info("User $userId answers checked. All correct: " . ($allCorrect ? 'Yes' : 'No'));
 
         if ($allCorrect) {
             // Get the assignment_id from the task or test
@@ -92,9 +94,12 @@ class UserAnswerService
                 $user->save();
 
                 Log::info("User $userId rating updated by $assignmentRating.");
+            } else {
+                Log::warning("No assignment_id found for User $userId, Task ID: $taskId, Test ID: $testId.");
             }
         }
     }
+
 
 
     public function updateUserAnswer($id, array $data)
