@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\UserAnswers;
 use App\Models\Task; // Assuming you have a Task model
 use App\Models\Test; // Assuming you have a Test model
+use App\Models\Assignment; // Assuming you have a Test model
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log; // Importing Laravel's logging
 
