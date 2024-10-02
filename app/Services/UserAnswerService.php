@@ -17,6 +17,13 @@ class UserAnswerService
 
     public function createOrUpdateUserAnswer(array $data)
     {
+        Log::info('Received data for createOrUpdateUserAnswer:', $data);
+
+        // Ensure that at least one of task_id or test_id is present
+        if (!isset($data['task_id']) && !isset($data['test_id'])) {
+            throw new \Exception('Neither task_id nor test_id is provided.');
+        }
+
         // Retrieve question based on task_id or test_id
         $question = null;
 
@@ -52,7 +59,6 @@ class UserAnswerService
 
         $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['task_id'], $data['test_id']);
 
-        Log::info($userAnswer);
         return $userAnswer;
     }
 
