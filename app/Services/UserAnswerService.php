@@ -32,7 +32,6 @@ class UserAnswerService
         }
 
         $isCorrect = $this->checkIsCorrectWithOpenAI($question, $data['answer']);
-
         $data['is_correct'] = $isCorrect;
 
         $existingAnswer = UserAnswers::where('user_id', $data['user_id'])
@@ -46,10 +45,40 @@ class UserAnswerService
 
         if ($existingAnswer) {
             $existingAnswer->update($data);
-            return $existingAnswer;
+            $userAnswer = $existingAnswer; // Store the updated answer
+        } else {
+            $userAnswer = UserAnswers::create($data); // Create new answer
         }
 
-        return UserAnswers::create($data);
+        // Check if all answers for the associated assignment are correct
+        $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['assignment_id']);
+
+        return $userAnswer;
+    }
+
+    private function updateUserRatingIfAllCorrect($userId, $assignmentId)
+    {
+        // Fetch all user answers for the specific assignment
+        $userAnswers = UserAnswers::where('user_id', $userId)
+            ->where('assignment_id', $assignmentId)
+            ->get();
+
+        // Check if all answers are correct
+        $allCorrect = $userAnswers->every(function ($answer) {
+            return $answer->is_correct; // Check is_correct flag
+        });
+
+        if ($allCorrect) {
+            // Fetch the assignment rating
+            $assignmentRating = Assignment::find($assignmentId)->rating;
+
+            // Update user's rating
+            $user = User::find($userId);
+            $user->rating += $assignmentRating;
+            $user->save();
+
+            Log::info("User $userId rating updated by $assignmentRating.");
+        }
     }
 
     public function updateUserAnswer($id, array $data)
