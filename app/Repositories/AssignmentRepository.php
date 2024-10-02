@@ -18,20 +18,19 @@ class AssignmentRepository
                 'test' => function($query) use ($user_id) {
                     $query->with(['userAnswers' => function ($subQuery) use ($user_id) {
                         $subQuery->select('id as user_answer_id', 'test_id', 'is_correct', 'user_id', 'answer')
-                            ->where('user_id', $user_id)
-                            ->first(); // Get only the last submitted answer
+                            ->where('user_id', $user_id);
                     }]);
                 },
                 'task' => function($query) use ($user_id) {
                     $query->with(['userAnswers' => function ($subQuery) use ($user_id) {
                         $subQuery->select('id as user_answer_id', 'task_id', 'is_correct', 'user_id', 'answer')
-                            ->where('user_id', $user_id)
-                            ->first(); // Get only the last submitted answer
+                            ->where('user_id', $user_id);
                     }]);
                 }
             ])
             ->first();
     }
+
 
     public function create(array $data)
     {
