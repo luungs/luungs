@@ -50,17 +50,21 @@ class UserAnswerService
             $userAnswer = UserAnswers::create($data); // Create new answer
         }
 
-        // Check if all answers for the associated assignment are correct
-        $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['assignment_id']);
+        $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['task_id'], $data['test_id']);
 
         return $userAnswer;
     }
 
-    private function updateUserRatingIfAllCorrect($userId, $assignmentId)
+   private function updateUserRatingIfAllCorrect($userId, $taskId = null, $testId = null)
     {
-        // Fetch all user answers for the specific assignment
+        // Fetch all user answers for the specific task or test
         $userAnswers = UserAnswers::where('user_id', $userId)
-            ->where('assignment_id', $assignmentId)
+            ->when($taskId, function ($query) use ($taskId) {
+                return $query->where('task_id', $taskId);
+            })
+            ->when($testId, function ($query) use ($testId) {
+                return $query->where('test_id', $testId);
+            })
             ->get();
 
         // Check if all answers are correct
@@ -69,17 +73,29 @@ class UserAnswerService
         });
 
         if ($allCorrect) {
-            // Fetch the assignment rating
-            $assignmentRating = Assignment::find($assignmentId)->rating;
+            // Get the assignment_id from the task or test
+            $assignmentId = null;
 
-            // Update user's rating
-            $user = User::find($userId);
-            $user->rating += $assignmentRating;
-            $user->save();
+            if ($taskId) {
+                $assignmentId = Task::where('id', $taskId)->value('assignment_id');
+            } elseif ($testId) {
+                $assignmentId = Test::where('id', $testId)->value('assignment_id');
+            }
 
-            Log::info("User $userId rating updated by $assignmentRating.");
+            if ($assignmentId) {
+                // Fetch the assignment rating
+                $assignmentRating = Assignment::find($assignmentId)->rating;
+
+                // Update user's rating
+                $user = User::find($userId);
+                $user->rating += $assignmentRating;
+                $user->save();
+
+                Log::info("User $userId rating updated by $assignmentRating.");
+            }
         }
     }
+
 
     public function updateUserAnswer($id, array $data)
     {
