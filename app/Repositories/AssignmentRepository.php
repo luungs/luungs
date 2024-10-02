@@ -19,7 +19,6 @@ class AssignmentRepository
                     $query->with(['userAnswers' => function ($subQuery) use ($user_id) {
                         $subQuery->select('id as user_answer_id', 'test_id', 'is_correct', 'user_id', 'answer')
                             ->where('user_id', $user_id)
-                            ->latest('created_at') // Assuming you have a `created_at` field for when the answer was submitted
                             ->first(); // Get only the last submitted answer
                     }]);
                 },
@@ -27,7 +26,6 @@ class AssignmentRepository
                     $query->with(['userAnswers' => function ($subQuery) use ($user_id) {
                         $subQuery->select('id as user_answer_id', 'task_id', 'is_correct', 'user_id', 'answer')
                             ->where('user_id', $user_id)
-                            ->latest('created_at') // Sort by the latest submission
                             ->first(); // Get only the last submitted answer
                     }]);
                 }
