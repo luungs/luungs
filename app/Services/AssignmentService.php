@@ -18,9 +18,9 @@ class AssignmentService
         return $this->assignmentRepository->all();
     }
 
-    public function getAssignmentById($id)
+    public function getAssignmentById($id, $user_id)
     {
-        return $this->assignmentRepository->findById($id);
+        return $this->assignmentRepository->findById($id, $user_id);
     }
 
     public function createAssignment(array $data)

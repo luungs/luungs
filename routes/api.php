@@ -25,7 +25,7 @@ Route::get('/user/$id', [AuthController::class, 'user']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/asignments', [AssignmentController::class, 'index']);
-Route::get('/asignments/{id}', [AssignmentController::class, 'show']);
+Route::get('/asignments/{id}/{user_id}', [AssignmentController::class, 'show']);
 
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);

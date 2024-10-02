@@ -11,28 +11,28 @@ class AssignmentRepository
         return Assignment::all();
     }
 
-    public function findById($id)
+    public function findById($id, $user_id)
     {
-        if(auth()->id()){
         return Assignment::where('id', $id)
             ->with([
-                'test' => function($query) {
-                    $query->with(['userAnswers' => function ($subQuery) {
-                        $subQuery->select('id as user_answer_id', 'test_id', 'is_correct', 'user_id')
-                            ->where('user_id', auth()->id());
+                'test' => function($query) use ($user_id) {
+                    $query->with(['userAnswers' => function ($subQuery) use ($user_id) {
+                        $subQuery->select('id as user_answer_id', 'test_id', 'is_correct', 'user_id', 'answer')
+                            ->where('user_id', $user_id)
+                            ->latest('created_at') // Assuming you have a `created_at` field for when the answer was submitted
+                            ->first(); // Get only the last submitted answer
                     }]);
                 },
-                'task' => function($query) {
-                    $query->with(['userAnswers' => function ($subQuery) {
-                        $subQuery->select('id as user_answer_id', 'task_id', 'is_correct', 'user_id')
-                            ->where('user_id', auth()->id());
+                'task' => function($query) use ($user_id) {
+                    $query->with(['userAnswers' => function ($subQuery) use ($user_id) {
+                        $subQuery->select('id as user_answer_id', 'task_id', 'is_correct', 'user_id', 'answer')
+                            ->where('user_id', $user_id)
+                            ->latest('created_at') // Sort by the latest submission
+                            ->first(); // Get only the last submitted answer
                     }]);
                 }
             ])
             ->first();
-        } else {
-            return Assignment::where('id', $id)->with('test', 'task')->first();
-        }
     }
 
     public function create(array $data)

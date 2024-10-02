@@ -21,9 +21,9 @@ class AssignmentController extends Controller
         return response()->json($assignments);
     }
 
-    public function show($id): JsonResponse
+    public function show($id, $user_id): JsonResponse
     {
-        $assignment = $this->assignmentService->getAssignmentById($id);
+        $assignment = $this->assignmentService->getAssignmentById($id, $user_id);
         return response()->json($assignment);
     }
 
