@@ -52,6 +52,7 @@ class UserAnswerService
 
         $this->updateUserRatingIfAllCorrect($userAnswer->user_id, $data['task_id'], $data['test_id']);
 
+        Log::info($userAnswer);
         return $userAnswer;
     }
 
