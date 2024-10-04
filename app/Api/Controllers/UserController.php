@@ -44,7 +44,7 @@ class UserController extends Controller
             'password' => 'string|min:6',
             'music_taste' => 'string|nullable',
             'movie_taste' => 'string|nullable',
-            'unversity' => 'string|nullable',
+            'university' => 'string|nullable',
             'grade' => 'string|nullable',
         ]);
 
