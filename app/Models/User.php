@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'music_taste',
         'movie_taste',
-        'unversity',
+        'university',
         'grade'
     ];
 
