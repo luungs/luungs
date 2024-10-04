@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
@@ -24,3 +25,8 @@ Route::get('/assignment', [AssignmentController::class, 'index']);
 Route::get('/user', [UserController::class, 'index']);
 
 Route::get('/chat', [ChatController::class, 'index']);
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::post('/register', [AuthController::class, 'register']);

@@ -1,12 +1,30 @@
 import { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
 import { HiOutlineHome, HiOutlineClipboardDocument, HiOutlineChatBubbleOvalLeft, HiOutlineUsers } from "react-icons/hi2";
 import { CgClose } from "react-icons/cg";
+import { useForm, Link, usePage } from '@inertiajs/react';
 
 export default function Layout({ children }) {
     const { url } = usePage();
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegisterOpen, setRegisterOpen] = useState(false);
+
+    const { data, setData, post, errors } = useForm({
+        name: '',
+        university: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+    });
+
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        post('/login');
+    };
+
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault();
+        post('/register');
+    };
 
     return (
         <div>
@@ -78,12 +96,27 @@ export default function Layout({ children }) {
                                     <div className='text-xl font-semibold'>Войти</div>
                                     <button onClick={() => setLoginOpen(false)} className='ml-auto text-xl bg-gray-200 text-gray-500 rounded-full p-1'><CgClose /></button>
                                 </div>
-                                <form className='mt-10'>
+                                <form onSubmit={handleLoginSubmit} className='mt-10'>
                                     <div className='text-gray-500 font-light mb-2'>Введите почту</div>
-                                    <input type="email" placeholder="Почта" className='border border-gray-300 p-2 mb-4 w-full rounded-lg' />
+                                    <input
+                                        type="email"
+                                        placeholder="Почта"
+                                        value={data.email}
+                                        onChange={e => setData('email', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.email && <div className="text-red-500">{errors.email}</div>}
+
                                     <div className='text-gray-500 font-light mb-2'>Введите пароль</div>
-                                    <input type="password" placeholder="Пароль" className='border border-gray-300 p-2 mb-4 w-full rounded-lg' />
-                                    <Link className='inline-block text-right w-full text-blue-500 font-semibold mb-5' href='/'>Забыли пароль?</Link>
+                                    <input
+                                        type="password"
+                                        placeholder="Пароль"
+                                        value={data.password}
+                                        onChange={e => setData('password', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.password && <div className="text-red-500">{errors.password}</div>}
+
                                     <button type="submit" className='bg-blue-500 text-white px-4 py-2 w-full text-center rounded-lg'>Войти</button>
                                 </form>
                             </div>
@@ -105,15 +138,57 @@ export default function Layout({ children }) {
                                     <div className='text-xl font-semibold'>Регистрация</div>
                                     <button onClick={() => setRegisterOpen(false)} className='ml-auto text-xl bg-gray-200 text-gray-500 rounded-full p-1'><CgClose /></button>
                                 </div>
-                                <form className='mt-10'>
+                                <form onSubmit={handleRegisterSubmit} className='mt-10'>
                                     <div className='text-gray-500 font-light mb-1'>Имя и Фамиилия</div>
-                                    <input type="email" placeholder="Имя и Фамилия" className='border border-gray-300 p-2 mb-4 w-full rounded-lg' />
+                                    <input
+                                        type="text"
+                                        placeholder="Имя и Фамилия"
+                                        value={data.name}
+                                        onChange={e => setData('name', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.name && <div className="text-red-500">{errors.name}</div>}
+
+                                    <div className='text-gray-500 font-light mb-1'>Введите университет</div>
+                                    <input
+                                        type="text"
+                                        placeholder="Университет"
+                                        value={data.university}
+                                        onChange={e => setData('university', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.university && <div className="text-red-500">{errors.university}</div>}
+
                                     <div className='text-gray-500 font-light mb-1'>Введите почту</div>
-                                    <input type="email" placeholder="Почта" className='border border-gray-300 p-2 mb-4 w-full rounded-lg' />
+                                    <input
+                                        type="email"
+                                        placeholder="Почта"
+                                        value={data.email}
+                                        onChange={e => setData('email', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.email && <div className="text-red-500">{errors.email}</div>}
+
                                     <div className='text-gray-500 font-light mb-1'>Придумайте пароль</div>
-                                    <input type="password" placeholder="Пароль" className='border border-gray-300 p-2 mb-4 w-full rounded-lg' />
+                                    <input
+                                        type="password"
+                                        placeholder="Пароль"
+                                        value={data.password}
+                                        onChange={e => setData('password', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.password && <div className="text-red-500">{errors.password}</div>}
+
                                     <div className='text-gray-500 font-light mb-1'>Повторите пароль</div>
-                                    <input type="password_confirm" placeholder="Повторите пароль" className='border border-gray-300 p-2 mb-4 w-full rounded-lg' />
+                                    <input
+                                        type="password"
+                                        placeholder="Повторите пароль"
+                                        value={data.password_confirmation}
+                                        onChange={e => setData('password_confirmation', e.target.value)}
+                                        className='border border-gray-300 p-2 mb-4 w-full rounded-lg'
+                                    />
+                                    {errors.password_confirmation && <div className="text-red-500">{errors.password_confirmation}</div>}
+
                                     <button type="submit" className='bg-blue-500 text-white px-4 py-2 w-full text-center rounded-lg mt-2'>Регистрация</button>
                                 </form>
                             </div>
