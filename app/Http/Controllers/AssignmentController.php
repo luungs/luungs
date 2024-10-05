@@ -20,18 +20,96 @@ class AssignmentController extends Controller
         $this->userAnswerService = $userAnswerService;
     }
 
-    public function index() {
-        $assignments = Assignment::all();
+    public function index()
+    {
+        if(Auth::user()) {
+            $user = Auth::user();
+            $assignments = Assignment::with('task', 'test')->get()->map(function ($assignment) use ($user) {
+                $isAttempted = UserAnswers::where('user_id', $user->id)
+                    ->where(function ($query) use ($assignment) {
+                        $query->whereIn('task_id', $assignment->task->pluck('id'))
+                              ->orWhereIn('test_id', $assignment->test->pluck('id'));
+                    })
+                    ->exists();
+
+                $assignment->is_attempted = $isAttempted;
+                return $assignment;
+            });
+        }else {
+            $assignments = Assignment::all();
+        }
+
         return Inertia::render('Assignments', [
             'assignments' => $assignments
         ]);
     }
 
-    public function show($id) {
-        $assignment = Assignment::where('id', $id)->with('test', 'task')->first();
-        return Inertia::render('Assignment', [
-            'assignment' => $assignment
-        ]);
+    public function show($id)
+    {
+        if (Auth::check()) {
+            $user = Auth::user(); // Get the authenticated user
+            $assignment = Assignment::where('id', $id)
+                ->with('task', 'test')
+                ->first();
+
+            if (!$assignment) {
+                return redirect()->back()->with('message', 'Assignment not found.');
+            }
+
+            // Check if the user has submitted answers for tasks or tests related to this assignment
+            $userAnswers = UserAnswers::where('user_id', $user->id)
+                ->where(function ($query) use ($assignment) {
+                    $query->whereIn('task_id', $assignment->task->pluck('id'))
+                          ->orWhereIn('test_id', $assignment->test->pluck('id'));
+                })
+                ->get();
+
+            $totalQuestions = $assignment->task->count() + $assignment->test->count();
+            $correctCount = 0;
+            $correctAnswers = [];
+
+            foreach ($userAnswers as $userAnswer) {
+                if ($userAnswer->is_correct) {
+                    $correctCount++;
+                    $correctAnswers[] = [
+                        'question_id' => $userAnswer->test_id ?? $userAnswer->task_id,
+                        'user_answer' => $userAnswer->answer,
+                        'correct' => true,
+                    ];
+                } else {
+                    $correctAnswers[] = [
+                        'question_id' => $userAnswer->test_id ?? $userAnswer->task_id,
+                        'user_answer' => $userAnswer->answer,
+                        'correct' => false,
+                    ];
+                }
+            }
+
+            $ratingGained = 0;
+            if ($totalQuestions > 0) {
+                $ratingMultiplier = $correctCount / $totalQuestions;
+                $ratingGained = $assignment->rating * $ratingMultiplier;
+            }
+
+            $isAttempted = $userAnswers->isNotEmpty();
+
+            return Inertia::render('Assignment', [
+                'assignment' => $assignment,
+                'is_attempted' => $isAttempted,
+                'correct_answers' => $correctAnswers,
+                'correct_count' => $correctCount,
+                'total_questions' => $totalQuestions,
+                'rating_gained' => $ratingGained,
+            ]);
+        } else {
+            $assignment = Assignment::where('id', $id)
+                ->with('task', 'test')
+                ->first();
+
+            return Inertia::render('Assignment', [
+                'assignment' => $assignment,
+            ]);
+        }
     }
 
     public function submitAnswers(Request $request, $id)
