@@ -41,7 +41,7 @@ export default function Layout({ children, user }) {
                             </div>
                             <div>
                                 <div className='font-semibold text-xl'>{auth.user.name}</div>
-                                <div className='text-gray-500 text-sm'>{auth.user.university}</div>
+                                <div className='text-gray-500 text-sm'>Рейтинг: {auth.user.rating} | {auth.user.university}</div>
                             </div>
                             <div>
                                 <IoMdLogOut className='text-3xl cursor-pointer'/>
