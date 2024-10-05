@@ -43,3 +43,5 @@ Route::post('/teacher/register', [TeacherAuthController::class, 'store']);
 Route::get('/teacher/login', [TeacherAuthController::class, 'loginForm'])->name('teacher.login');
 Route::post('/teacher/login', [TeacherAuthController::class, 'login']);
 Route::post('/teacher/logout', [TeacherAuthController::class, 'logout'])->name('teacher.logout');
+
+Route::post('/assignments/{id}/submit-answers', [AssignmentController::class, 'submitAnswers']);
