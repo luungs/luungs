@@ -4,6 +4,8 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TeacherAuthController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +33,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/teacher/', [TeacherController::class, 'index']);
+Route::get('/teacher/register', [TeacherAuthController::class, 'create'])->name('teacher.register');
+Route::post('/teacher/register', [TeacherAuthController::class, 'store']);
+Route::get('/teacher/login', [TeacherAuthController::class, 'loginForm'])->name('teacher.login');
+Route::post('/teacher/login', [TeacherAuthController::class, 'login']);
+Route::post('/teacher/logout', [TeacherAuthController::class, 'logout'])->name('teacher.logout');
