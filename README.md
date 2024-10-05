@@ -6,5 +6,5 @@
 - [ ] Students profile with university logo
 - [ ] In multiple languages
 - [x] Dashboard for teachers
-- [ ] Creating assignment 
+- [x] Creating assignment 
 - [ ] Mobile responsive

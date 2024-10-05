@@ -9,6 +9,8 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [ 'question', 'assignment_id' ];
+
     public function userAnswers()
     {
         return $this->hasMany(UserAnswers::class); // Assuming UserAnswer model exists

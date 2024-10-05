@@ -15,7 +15,7 @@ export default function Assignment({ auth, assignment }) {
                         </div>
                         <div className='px-5 py-4 bg-white border border-gray-200 rounded-lg mt-2'>
                             <div className='font-semibold'>Задания</div>
-                            {assignment.type == 'test' && (
+                            {assignment.test.length > 0 && (
                                 <div>
                                     {assignment.test.map((test, index) => (
                                         <div key={index} className='mt-2'>
@@ -40,7 +40,7 @@ export default function Assignment({ auth, assignment }) {
                                     ))}
                                 </div>
                             )}
-                            {assignment.type == 'task' && (
+                            {assignment.task.length > 0 && (
                                 <div>
                                     {assignment.task.map((task, index) => (
                                         <div className='mt-2' key={index}>

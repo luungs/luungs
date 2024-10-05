@@ -35,6 +35,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/teacher/', [TeacherController::class, 'index']);
+Route::get('/teacher/create-assignment', [TeacherController::class, 'createAssignment'])->name('teacher.create-assignment');
+Route::post('/teacher/store-assignment', [TeacherController::class, 'storeAssignment'])->name('teacher.store-assignment');
+Route::get('/teacher/tasks', [TeacherController::class, 'assignments']);
 Route::get('/teacher/register', [TeacherAuthController::class, 'create'])->name('teacher.register');
 Route::post('/teacher/register', [TeacherAuthController::class, 'store']);
 Route::get('/teacher/login', [TeacherAuthController::class, 'loginForm'])->name('teacher.login');
