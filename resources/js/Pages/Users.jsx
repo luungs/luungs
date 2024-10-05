@@ -14,8 +14,9 @@ export default function Welcome({ auth, users }) {
                             placeholder='Поиск...'
                         />
                         {users.length > 0 && users.map((user, index) => (
-                            <Link href={`/assignment/${user.id}`} key={index} className='w-full block border border-gray-200 px-7 mt-2 py-5 rounded-lg bg-white'>
+                            <Link href={`/user/${user.id}`} key={index} className='w-full block border border-gray-200 px-7 mt-2 py-5 rounded-lg bg-white'>
                                 <div className='text-xl font-semibold'>{user.name}</div>
+                                <div className='text-gray-500'>{user.university}</div>
                             </Link>
                         ))}
                     </div>

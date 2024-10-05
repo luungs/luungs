@@ -1,0 +1,161 @@
+[33mcommit 8b758f40cdfba17ed0375270bb6b813d2b114d6c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sat Oct 5 12:39:53 2024 +0500
+
+    feat: add chat logic
+
+[33mcommit 7bae1db83995369a715ae194df4cfd0f7ef776a7[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sat Oct 5 00:12:58 2024 +0500
+
+    feat: add registration and login
+
+[33mcommit 3c0e6c81ff943b171090261f489f6c55bb9819cc[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 23:51:55 2024 +0500
+
+    fix: edit README.md
+
+[33mcommit ca77f24eb14838e378de734326a64b60136ab8bc[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 18:43:56 2024 +0500
+
+    feat: update university typo
+
+[33mcommit 0d33e75f72372e23294a96138be6c4b89a631eb1[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 17:45:17 2024 +0500
+
+    fix: registration university
+
+[33mcommit 16eb06e25684c0db72a43d9d940249383db5ddd6[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 17:38:51 2024 +0500
+
+    feat: add user id in registration
+
+[33mcommit 405088bc680d79cd32ab81ff530185e6dd17f891[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 17:37:26 2024 +0500
+
+    feat: add user id in registration
+
+[33mcommit 369585e189ec5f7ec746f37c670739c88145d9fb[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 17:35:42 2024 +0500
+
+    feat: add user id in registration
+
+[33mcommit 1ddd1b458120b73e14e4f506b1cbb25b8ec6fdc9[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Fri Oct 4 16:46:36 2024 +0500
+
+    feat: add univeristy at registration
+
+[33mcommit 0953b60c154215e54a292fa6d088814f13761b4a[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:31:21 2024 +0500
+
+    feat: add loging
+
+[33mcommit fdee58e1de49077b2f7d94f10e8da2ee3a1377f9[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:29:42 2024 +0500
+
+    feat: add loging
+
+[33mcommit ebaf8569150f5b9e32fec00818567ef5b588b408[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:28:06 2024 +0500
+
+    feat: add loging
+
+[33mcommit 93597e672da748cc7d396bea7a2bfbc33bad12bc[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:26:19 2024 +0500
+
+    feat: add loging
+
+[33mcommit 665dc4564864aa416d4999fd0618c5531e402376[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:21:52 2024 +0500
+
+    feat: add loging
+
+[33mcommit 25a67f0c044b16f305fdf48c75002e0b25bcfcd8[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:20:29 2024 +0500
+
+    feat: add loging
+
+[33mcommit 0477c6dfb5dc3232f0ed8e6d7f82017369b569bf[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:07:22 2024 +0500
+
+    feat: add logic of adding rating
+
+[33mcommit 2376951ebdfe98c9138b3798be01632bbd792191[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 17:02:10 2024 +0500
+
+    feat: add logic of adding rating
+
+[33mcommit 6234ede756103c50899976a2c87eba36991416e3[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 16:58:01 2024 +0500
+
+    fix: the users answers of assignment
+
+[33mcommit 3074d69fa3251e77339de604fda902da2701650e[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 16:45:40 2024 +0500
+
+    feat: add the user answers
+
+[33mcommit f7fd2cbff10cbad6607c926a1a6204f107f3c715[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 16:30:41 2024 +0500
+
+    feat: add to check if correct or not
+
+[33mcommit 97d11990dd804e4840b93268b3905123b7260cbc[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Wed Oct 2 11:56:01 2024 +0500
+
+    feat: add the logic or showing is answer correct or not
+
+[33mcommit fa9bb25de2d9ab2feba0c84f763032f2bf01716e[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sun Sep 29 19:31:31 2024 +0500
+
+    feat: add the logic of answer to question
+
+[33mcommit 81832af6f0c30e904c1721ff2cacfb81acf7eb4c[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sun Sep 29 18:57:19 2024 +0500
+
+    fix: udpate show method of assignment
+
+[33mcommit 4d61908de52c924d4f679c7205ec5345934ad79a[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sun Sep 29 18:54:17 2024 +0500
+
+    feat: add assignment controller
+
+[33mcommit 8dffc6e0cabb4e44d8e1bf01dc3e6661f4bd9566[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sun Sep 29 18:45:28 2024 +0500
+
+    feat: add api controller
+
+[33mcommit 8cf1477c0cee0ec9b02b679387301fec55b22ad8[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sun Sep 29 10:20:08 2024 +0500
+
+    feat: add modal for register and login
+
+[33mcommit c165b73741941f306ca728b2e6209992de32b4a7[m
+Author: aidosgal <agalimzhan928@gmail.com>
+Date:   Sun Sep 29 09:33:35 2024 +0500
+
+    feat: inital commit

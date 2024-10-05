@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { HiOutlineHome, HiOutlineClipboardDocument, HiOutlineChatBubbleOvalLeft, HiOutlineUsers } from "react-icons/hi2";
 import { CgClose } from "react-icons/cg";
 import { useForm, Link, usePage } from '@inertiajs/react';
+import { IoMdLogOut } from "react-icons/io";
 
-export default function Layout({ children }) {
+
+export default function Layout({ children, user }) {
     const { url } = usePage();
+    const { auth } = usePage().props;
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isRegisterOpen, setRegisterOpen] = useState(false);
 
@@ -31,18 +34,33 @@ export default function Layout({ children }) {
             <div className='w-full z-20 bg-white py-4 flex sticky top-0'>
                 <div className='mx-auto items-center min-w-[1200px] max-w-[1400px] flex'>
                     <div className='text-3xl text-blue-500 font-semibold'>luungs</div>
-                    <div className='flex ml-auto gap-x-5 items-center'>
-                        <button
-                            onClick={() => setLoginOpen(true)}
-                            className='px-10 py-2 border-2 border-blue-500 rounded-lg font-semibold text-blue-500'>
-                            Войти
-                        </button>
-                        <button
-                            onClick={() => setRegisterOpen(true)}
-                            className='px-10 py-2 bg-blue-500 rounded-lg text-white font-semibold border-2 border-blue-500'>
-                            Создать аккаунт
-                        </button>
-                    </div>
+                    {auth.user ? (
+                        <div className='flex ml-auto gap-x-5 items-center'>
+                            <div className='w-[50px] h-[50px] flex items-center font-semibold justify-center rounded-full text-white bg-blue-500'>
+                                {auth.user.name[0]}
+                            </div>
+                            <div>
+                                <div className='font-semibold text-xl'>{auth.user.name}</div>
+                                <div className='text-gray-500 text-sm'>{auth.user.university}</div>
+                            </div>
+                            <div>
+                                <IoMdLogOut className='text-3xl cursor-pointer'/>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='flex ml-auto gap-x-5 items-center'>
+                            <button
+                                onClick={() => setLoginOpen(true)}
+                                className='px-10 py-2 border-2 border-blue-500 rounded-lg font-semibold text-blue-500'>
+                                Войти
+                            </button>
+                            <button
+                                onClick={() => setRegisterOpen(true)}
+                                className='px-10 py-2 bg-blue-500 rounded-lg text-white font-semibold border-2 border-blue-500'>
+                                Создать аккаунт
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className='flex bg-gray-100'>

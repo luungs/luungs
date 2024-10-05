@@ -18,7 +18,6 @@ class UserAnswerController extends Controller
 
     public function store(UserAnswerRequest $request): JsonResponse
     {
-
         $data = $request->validated();
 
         $userAnswer = $this->userAnswerService->createOrUpdateUserAnswer($data);

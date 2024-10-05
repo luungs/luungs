@@ -1,7 +1,7 @@
 ## TODO:
 
 - [ ] Assignment making logic and design
-- [ ] Chat logic
+- [x] Chat logic
 - [x] Login and registration
 - [ ] Students profile with university logo
 - [ ] In multiple languages
