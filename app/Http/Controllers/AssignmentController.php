@@ -85,7 +85,7 @@ class AssignmentController extends Controller
             $ratingMultiplier = $correctCount / $totalQuestions;
             Log::info('Rating before update: ' . $user->rating);
 
-            $user->rating += $user->rating * $ratingMultiplier;
+            $user->rating += $assignment->rating * $ratingMultiplier;
             $user->save();
 
             Log::info('Rating after update: ' . $user->rating);
