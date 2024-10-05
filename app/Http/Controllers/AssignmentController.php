@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Models\UserAnswers;
 use App\Services\UserAnswerService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AssignmentController extends Controller
 {
@@ -36,8 +37,13 @@ class AssignmentController extends Controller
     public function submitAnswers(Request $request, $id)
     {
         $user = Auth::user();
+        Log::info('User ID: ' . $user->id . ' is submitting answers for assignment ID: ' . $id);
 
         $assignment = Assignment::find($id);
+        if (!$assignment) {
+            Log::error('Assignment not found for ID: ' . $id);
+            return redirect()->back()->with('message', 'Assignment not found.');
+        }
 
         $existingAnswers = UserAnswers::where('user_id', $user->id)
             ->where(function ($query) use ($assignment) {
@@ -47,10 +53,13 @@ class AssignmentController extends Controller
             ->exists();
 
         if ($existingAnswers) {
-            return redirect()->back()->with('messages', ['You have already submitted your answers.']);
+            Log::warning('User ID: ' . $user->id . ' has already submitted answers for assignment ID: ' . $id);
+            return redirect()->back()->with('message', 'You have already submitted your answers.');
         }
 
         $answers = $request->input('answers');
+        Log::info('Received answers: ', $answers);
+
         $correctCount = 0;
         $totalQuestions = count($answers);
 
@@ -58,30 +67,38 @@ class AssignmentController extends Controller
             $userAnswer = $this->userAnswerService->createOrUpdateUserAnswer([
                 'user_id' => $user->id,
                 'assignment_id' => $assignment->id,
-                'test_id' => $answer['question_id'], // Ensure your answer contains question_id
-                'answer' => $answer['selected_answer'], // The answer the user selected
+                'test_id' => $answer['question_id'],
+                'answer' => $answer['selected_answer'],
             ]);
 
             if ($userAnswer->is_correct) {
                 $correctCount++;
+                Log::info('Correct answer found for question ID: ' . $answer['question_id']);
+            } else {
+                Log::info('Incorrect answer for question ID: ' . $answer['question_id']);
             }
         }
 
+        Log::info('Total Questions: ' . $totalQuestions . ', Correct Answers: ' . $correctCount);
+
         if ($totalQuestions > 0) {
             $ratingMultiplier = $correctCount / $totalQuestions;
+            Log::info('Rating before update: ' . $user->rating);
+
             $user->rating += $user->rating * $ratingMultiplier;
             $user->save();
+
+            Log::info('Rating after update: ' . $user->rating);
         }
 
         // Redirect back with success message and results
         return redirect()->back()->with([
-            'messages' => [
-                'Answers submitted successfully.',
-                'correct_answers' => $correctCount,
-                'total_questions' => $totalQuestions,
-                'updated_rating' => $user->rating,
-            ]
+            'message' => 'Answers submitted successfully.',
+            'correct_answers' => $correctCount,
+            'total_questions' => $totalQuestions,
+            'updated_rating' => $user->rating,
         ]);
     }
+
 }
 
