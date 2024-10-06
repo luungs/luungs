@@ -60,7 +60,10 @@ export default function Layout({ children, user }) {
         <div>
             <div className='w-full z-20 bg-white py-4 flex sticky top-0'>
                 <div className='mx-auto items-center min-w-[1200px] max-w-[1400px] flex'>
-                    <div className='text-3xl text-blue-500 font-semibold'>luungs</div>
+                    <div>
+                        <div className='text-3xl text-blue-500 font-semibold'>luungs</div>
+                        <div className='text-xl font-light text-gray-500'>bızden bızge</div>
+                    </div>
                     {auth.user ? (
                         <div className='flex ml-auto gap-x-5 items-center'>
                             <div className='w-[50px] h-[50px] flex items-center font-semibold justify-center rounded-full text-white bg-blue-500'>
