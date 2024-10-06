@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -15,6 +14,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function register(Request $request) {
+    public function show($id) {
+        $user = User::find($id);
+
+        return Inertia::render('User', [
+            'user' => $user,
+        ]);
     }
 }

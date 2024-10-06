@@ -25,6 +25,7 @@ Route::get('/assignment/{id}', [AssignmentController::class, 'show']);
 Route::get('/assignment', [AssignmentController::class, 'index']);
 
 Route::get('/user', [UserController::class, 'index']);
+Route::get('/user/{id}', [UserController::class, 'show']);
 
 Route::get('/chat', [ChatController::class, 'index']);
 Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');

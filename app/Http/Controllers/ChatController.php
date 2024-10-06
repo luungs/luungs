@@ -12,12 +12,7 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $chat = Chat::where('user_id', auth()->id())->first();
-
-        return Inertia::render('Chat', [
-            'userMessage' => $chat->request,
-            'assistantResponse' => $chat->response,
-        ]);
+        return Inertia::render('Chat');
     }
 
     public function send(Request $request)
