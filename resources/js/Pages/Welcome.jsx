@@ -6,8 +6,8 @@ export default function Welcome({ auth, assignments }) {
         <>
             <Head title="Welcome" />
             <Layout>
-                <div className='grid grid-cols-10 pt-5 gap-x-5'>
-                    <div className='col-span-7'>
+                <div className='grid grid-cols-1 lg:grid-cols-10 pt-5 gap-x-5'>
+                    <div className='col-span-7 w-full'>
                         <div className='bg-white rounded-lg border border-gray-200 px-7 py-5 mb-3'>
                             <div className='text-4xl text-blue-500 font-semibold'>luungs</div>
                             <div className='text-gray-500 text-xl'>bızden bızge</div>
@@ -25,7 +25,7 @@ export default function Welcome({ auth, assignments }) {
                             </Link>
                         ))}
                     </div>
-                    <div className='col-span-3'>
+                    <div className='col-span-3 hidden lg:block'>
                         <div className='py-3 px-5 rounded-lg bg-white border border-gray-200'>
                             <div className='text-lg font-semibold'>Здесь нужно поставить новость</div>
                             <div className='text-blue-500 font-semibold text-xl'>luungs - bızden bızge</div>
