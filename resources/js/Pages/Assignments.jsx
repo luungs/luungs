@@ -6,7 +6,7 @@ export default function Assignments({ auth, assignments }) {
         <>
             <Head title="Welcome" />
             <Layout>
-                <div className='grid grid-cols-10 pt-5 gap-x-5'>
+                <div className='grid grid-cols-1 lg:grid-cols-10 pt-5 gap-x-5'>
                     <div className='col-span-7'>
                         <input
                             type='text'
@@ -28,7 +28,7 @@ export default function Assignments({ auth, assignments }) {
                             </Link>
                         ))}
                     </div>
-                    <div className='col-span-3'>
+                    <div className='col-span-3 hidden lg:block'>
                         <div className='py-3 px-5 rounded-lg bg-white border border-gray-200'>
                             <div className='text-lg font-semibold'>Здесь нужно поставить новость</div>
                             <div className='text-blue-500 font-semibold text-xl'>luungs - bızden bızge</div>

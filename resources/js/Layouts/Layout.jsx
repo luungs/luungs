@@ -39,8 +39,8 @@ export default function Layout({ children, user }) {
         <div>
             {/* Header */}
             <div className='w-full z-20 bg-white py-4 flex sticky top-0'>
-                <div className='mx-auto items-center min-w-[1200px] max-w-[1400px] flex px-4 lg:px-0'>
-                    <div className='lg:text-3xl text-5xl px-5 lg:px-[0px] text-blue-500 font-semibold'>luungs</div>
+                <div className='mx-auto items-center w-auto lg:min-w-[1200px] max-w-[1400px] flex px-4 lg:px-0'>
+                    <div className='lg:text-3xl text-2xl lg:px-[0px] text-blue-500 font-semibold'>luungs</div>
 
                     {/* Profile section (hidden on mobile) */}
                     {auth.user ? (
@@ -74,7 +74,7 @@ export default function Layout({ children, user }) {
             </div>
 
             <div className='flex bg-gray-100'>
-                <div className='mx-auto min-w-[1200px] max-w-[1400px] grid grid-cols-12 gap-x-3 px-4 lg:px-0'>
+                <div className='mx-auto w-auto grid grid-cols-12 gap-x-3 px-4 lg:px-0'>
                     {/* Sidebar (only for larger screens) */}
                     <div className='z-10 col-span-2 sticky top-0 mt-5 hidden lg:block'>
                         <Link
@@ -122,28 +122,28 @@ export default function Layout({ children, user }) {
                         href='/'
                         className={`flex flex-col items-center ${url === '/' ? 'text-blue-500' : 'text-gray-500'}`}
                     >
-                        <HiOutlineHome className='text-4xl' />
+                        <HiOutlineHome className='text-3xl' />
                         <div className='text-xs'>Главная</div>
                     </Link>
                     <Link
                         href='/assignment'
                         className={`flex flex-col items-center ${url === '/assignment' ? 'text-blue-500' : 'text-gray-500'}`}
                     >
-                        <HiOutlineClipboardDocument className='text-4xl' />
+                        <HiOutlineClipboardDocument className='text-3xl' />
                         <div className='text-xs'>Задания</div>
                     </Link>
                     <Link
                         href='/user'
                         className={`flex flex-col items-center ${url === '/user' ? 'text-blue-500' : 'text-gray-500'}`}
                     >
-                        <HiOutlineUsers className='text-4xl' />
+                        <HiOutlineUsers className='text-3xl' />
                         <div className='text-xs'>Студенты</div>
                     </Link>
                     <button
                         onClick={handleChatClick}
                         className={`flex flex-col items-center ${url === '/chat' ? 'text-blue-500' : 'text-gray-500'}`}
                     >
-                        <HiOutlineChatBubbleOvalLeft className='text-4xl' />
+                        <HiOutlineChatBubbleOvalLeft className='text-3xl' />
                         <div className='text-xs'>Чат</div>
                     </button>
                 </div>
